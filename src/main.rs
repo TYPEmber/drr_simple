@@ -1,5 +1,6 @@
-use std::io::Read;
+use std::{ffi::OsString, io::Read, str::FromStr};
 
+use chrono::format::Item;
 use clap::{command, Parser, Subcommand};
 
 mod recorder;
@@ -15,11 +16,7 @@ struct Args {
 #[derive(Subcommand, Debug)]
 enum Command {
     Record(recorder::Args),
-    Replay {
-        #[arg(allow_hyphen_values = true)]
-        #[arg(help = "")]
-        args: Vec<String>,
-    },
+    Replay(replayer::ReplayerArgs),
     Glance {
         #[arg(default_value = "data")]
         path: std::path::PathBuf,
@@ -39,12 +36,16 @@ fn main() -> std::io::Result<()> {
 
     let ver = [ver[0], ver[1], ver[2]];
 
+    // 预处理器
+    let args_os = std::env::args_os();
+    let args_os = replayer::pre_proc(args_os);
+
     // 获取命令行参数
-    let args = Args::parse();
+    let args = Args::parse_from(args_os);
 
     match args.command {
         Command::Record(args) => recorder::run(args, ver),
-        Command::Replay { args } => replayer::run(args),
+        Command::Replay(args) => replayer::run(args),
         Command::Glance { path } => {
             let mut ver = [0u8; 3];
             std::fs::File::open(&path)?.read_exact(&mut ver)?;
