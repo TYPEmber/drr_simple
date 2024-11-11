@@ -10,6 +10,13 @@ use std::{
 };
 
 #[derive(Parser, Debug, Clone)]
+/// Memory Layout
+/// ----------------------
+/// [u8; 3]
+///    ^Version
+/// [(u16, [u8; LEN]); N]
+///    ^LEN    ^Msg
+#[command(verbatim_doc_comment)]
 pub struct Args {
     // 监听ip
     #[arg(long, default_value = "127.0.0.1")]
@@ -32,8 +39,11 @@ pub struct Args {
 }
 
 pub fn run(args: Args) -> std::io::Result<()> {
+    println!(
+        "{}",
+        clap::builder::StyledStr::from("\x1b[10mThis is a styled message.\x1b[0m").ansi()
+    );
     let mut data = BufReader::new(std::fs::File::open(&args.input)?);
-
     // 确认版本号
     let mut ver = [0u8; 3];
     data.read_exact(&mut ver)?;

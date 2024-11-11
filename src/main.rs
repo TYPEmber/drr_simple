@@ -52,6 +52,9 @@ fn main() -> std::io::Result<()> {
                 ver[1],
                 ver[2]
             );
+            println!("----------------------");
+            println!("{}", replayer::get_ver_about(ver));
+
             Ok(())
         }
     }

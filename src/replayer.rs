@@ -1,4 +1,4 @@
-use clap::{command, Parser, Subcommand};
+use clap::{command, CommandFactory, Parser, Subcommand};
 
 mod v0_0_1;
 
@@ -24,8 +24,15 @@ pub enum Version {
 
 pub fn run(args: Version) -> std::io::Result<()> {
     match args {
-        Version::Defualt(args) =>  DefaultVersion::run(args),
+        Version::Defualt(args) => DefaultVersion::run(args),
         Version::Latest(args) => LatestVersion::run(args),
         Version::V0_0_1(args) => v0_0_1::run(args),
+    }
+}
+
+pub fn get_ver_about(ver: [u8; 3]) -> String {
+    match ver {
+        [0, 0, 1] => v0_0_1::Args::command().get_about().unwrap().to_string(),
+        _ => unreachable!(),
     }
 }
