@@ -1,0 +1,10 @@
+[package]
+name = "drr_simple"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4"
+ctrlc = "3.2"
+crossbeam = "0.8"
+clap = { version = "4.5.20", features = ["derive"] }
