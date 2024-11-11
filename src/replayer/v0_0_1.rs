@@ -38,10 +38,6 @@ pub struct Args {
 }
 
 pub fn run(args: Args) -> std::io::Result<()> {
-    println!(
-        "{}",
-        clap::builder::StyledStr::from("\x1b[10mThis is a styled message.\x1b[0m").ansi()
-    );
     let mut data = BufReader::new(std::fs::File::open(&args.input)?);
     // 确认版本号
     let mut ver = [0u8; 3];
