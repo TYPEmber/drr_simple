@@ -1,4 +1,4 @@
-use clap::{command, Parser};
+use clap::Parser;
 use crossbeam::channel::bounded;
 use std::fs::OpenOptions;
 use std::io::{BufWriter, Write};
@@ -12,7 +12,6 @@ use std::{
 use std::{thread, time};
 
 #[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
 pub struct Args {
     // 监听ip
     #[arg(long, default_value = "0.0.0.0")]
@@ -34,7 +33,7 @@ pub struct Args {
 
 fn write_msg(writer: &mut BufWriter<std::fs::File>, msg: &[u8]) -> std::io::Result<()> {
     let length_prefix = msg.len() as u16; // 获取消息长度
-    // println!("Message length: {}", length_prefix);
+                                          // println!("Message length: {}", length_prefix);
 
     // 写入长度前缀
     writer.write_all(&length_prefix.to_le_bytes())?;
