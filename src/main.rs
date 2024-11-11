@@ -15,7 +15,8 @@ struct Args {
 #[derive(Subcommand, Debug)]
 enum Command {
     Record(recorder::Args),
-    Replay(replayer::ReplayerArgs),
+    #[command(flatten)]
+    Replay(replayer::Version),
     Glance {
         #[arg(default_value = "data")]
         path: std::path::PathBuf,
@@ -35,12 +36,8 @@ fn main() -> std::io::Result<()> {
 
     let ver = [ver[0], ver[1], ver[2]];
 
-    // 预处理器
-    let args_os = std::env::args_os();
-    let args_os = replayer::pre_proc(args_os);
-
     // 获取命令行参数
-    let args = Args::parse_from(args_os);
+    let args = Args::parse();
 
     match args.command {
         Command::Record(args) => recorder::run(args, ver),
