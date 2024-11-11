@@ -1,6 +1,5 @@
-use std::{ffi::OsString, io::Read, str::FromStr};
+use std::io::Read;
 
-use chrono::format::Item;
 use clap::{command, Parser, Subcommand};
 
 mod recorder;
