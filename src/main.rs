@@ -53,7 +53,7 @@ fn main() -> std::io::Result<()> {
                 ver[2]
             );
             println!("----------------------");
-            println!("{}", replayer::get_ver_about(ver));
+            println!("{}", replayer::get_ver_long_about(ver));
 
             Ok(())
         }

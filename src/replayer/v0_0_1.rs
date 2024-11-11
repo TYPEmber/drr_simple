@@ -10,12 +10,11 @@ use std::{
 };
 
 #[derive(Parser, Debug, Clone)]
+/// Ver 0.0.1
+/// 
 /// Memory Layout
-/// ----------------------
-/// [u8; 3]
-///    ^Version
-/// [(u16, [u8; LEN]); N]
-///    ^LEN    ^Msg
+/// Version: [u8; 3]
+/// [(LEN, MSG); N]: [(u16, [u8; LEN]); N]
 #[command(verbatim_doc_comment)]
 pub struct Args {
     // 监听ip

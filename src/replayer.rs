@@ -30,9 +30,9 @@ pub fn run(args: Version) -> std::io::Result<()> {
     }
 }
 
-pub fn get_ver_about(ver: [u8; 3]) -> String {
+pub fn get_ver_long_about(ver: [u8; 3]) -> String {
     match ver {
-        [0, 0, 1] => v0_0_1::Args::command().get_about().unwrap().to_string(),
+        [0, 0, 1] => v0_0_1::Args::command().get_long_about().unwrap().to_string(),
         _ => unreachable!(),
     }
 }
